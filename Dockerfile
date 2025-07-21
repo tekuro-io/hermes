@@ -6,7 +6,6 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 COPY src/requirements.txt /app/
-COPY util/view.py /app/
 
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt
