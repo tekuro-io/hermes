@@ -1,5 +1,6 @@
 import asyncio
 import websockets
+import ssl
 import json
 import os
 from collections import defaultdict
@@ -23,6 +24,11 @@ WS_PORT = int(os.environ.get('WS_PORT', 443))
 
 TOPIC_SUBSCRIPTIONS = defaultdict(set)
 CLIENT_TOPICS = defaultdict(set)
+
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+ssl_context.load_cert_chain("/app/ssl/tls.crt", "/app/ssl/tls.key")
+
+
 
 async def register_client(websocket):
     """Registers a new WebSocket client and sends a welcome message."""
@@ -142,7 +148,7 @@ async def handler(websocket):
 async def main():
     """Starts the WebSocket server."""
     print(f"Starting Python WebSocket server on port {WS_PORT}...")
-    async with websockets.serve(handler, "0.0.0.0", WS_PORT):
+    async with websockets.serve(handler, "0.0.0.0", WS_PORT, ssl=ssl_context):
         await asyncio.Future()  # Run forever
 
 if __name__ == "__main__":
