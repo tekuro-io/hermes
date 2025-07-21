@@ -19,7 +19,7 @@ from collections import defaultdict
 # A Python WebSocket server for topic-based broadcasting
 
 # --- Configuration ---
-WS_PORT = int(os.environ.get('WS_PORT', 8080))
+WS_PORT = int(os.environ.get('WS_PORT', 80))
 
 TOPIC_SUBSCRIPTIONS = defaultdict(set)
 CLIENT_TOPICS = defaultdict(set)
