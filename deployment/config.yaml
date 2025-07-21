@@ -5,3 +5,4 @@ metadata:
   namespace: stock
 data:
   WS_PORT: 8080
+  WS_PUBLIC_URL: "ws://hermes.tekuro.io:8080"
