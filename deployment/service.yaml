@@ -8,6 +8,6 @@ spec:
     app: hermes 
   ports:
     - protocol: TCP
-      port: 443
+      port: 80
       targetPort: 80
   type: ClusterIP
