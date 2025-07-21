@@ -1,6 +1,6 @@
 import asyncio
 import websockets
-import ssl
+
 import json
 import os
 from collections import defaultdict
@@ -20,13 +20,11 @@ from collections import defaultdict
 # A Python WebSocket server for topic-based broadcasting
 
 # --- Configuration ---
-WS_PORT = int(os.environ.get('WS_PORT', 443))
+WS_PORT = int(os.environ.get('WS_PORT', 80))
 
 TOPIC_SUBSCRIPTIONS = defaultdict(set)
 CLIENT_TOPICS = defaultdict(set)
 
-ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-ssl_context.load_cert_chain("/app/ssl/tls.crt", "/app/ssl/tls.key")
 
 
 
@@ -148,7 +146,7 @@ async def handler(websocket):
 async def main():
     """Starts the WebSocket server."""
     print(f"Starting Python WebSocket server on port {WS_PORT}...")
-    async with websockets.serve(handler, "0.0.0.0", WS_PORT, ssl=ssl_context):
+    async with websockets.serve(handler, "0.0.0.0", WS_PORT):
         await asyncio.Future()  # Run forever
 
 if __name__ == "__main__":
