@@ -17,14 +17,22 @@ spec:
         app: hermes
     spec:
       containers:
-      - name: hermes-container
-        image: artifacts.tekuro.io/hermes:latest
-        env:
-        - name: WS_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: hermes-config
-              key: WS_PORT
+        - name: hermes-container
+          image: artifacts.tekuro.io/hermes:latest
+          env:
+            - name: WS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: hermes-config
+                  key: WS_PORT
+          volumeMounts:
+            - name: tls-volume
+              mountPath: /app/ssl
+              readOnly: true
+      volumes:
+        - name: tls-volume
+          secret:
+            secretName: hermes-tls
       restartPolicy: Always
       imagePullSecrets:
         - name: regcred
