@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hermes-deployment
+  namespace: stock
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: hermes
+  template:
+    metadata:
+      annotations:
+        git-tag: TAG
+      labels:
+        app: hermes
+    spec:
+      containers:
+      - name: hermes-container
+        image: artifacts.tekuro.io/hermes:latest
+        env:
+        - name: WS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: hermes-config
+              key: WS_PORT
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
