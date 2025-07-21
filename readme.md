@@ -1,4 +1,4 @@
-## <p align="center"><img src="hermes.png" alt="Hermes" width="300"></p>
+## <p align="center"><img src="hermes.png" alt="Hermes"></p>
 
 # Hermes: Your Topic-Based WebSocket Message Broker
 
